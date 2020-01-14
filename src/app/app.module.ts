@@ -1,3 +1,6 @@
+import { FlashCardComponent } from './component/flash-card/flash-card.component';
+import { CommonModule } from '@angular/common';
+import { QuestionService } from './services/question.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -9,14 +12,19 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { HTTP } from '@ionic-native/http/ngx';
+
+
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  declarations: [AppComponent, FlashCardComponent],
+  entryComponents: [FlashCardComponent],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, CommonModule],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    HTTP,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    QuestionService
   ],
   bootstrap: [AppComponent]
 })

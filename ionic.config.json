@@ -1,5 +1,8 @@
 {
   "name": "LanguageApp",
-  "integrations": {},
-  "type": "angular"
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular",
+  "id": "644e39c7"
 }
