@@ -1,14 +1,33 @@
 <ion-header>
   <ion-toolbar>
-    
-  <ion-buttons slot="start">
-    <ion-back-button defaultHref="/"></ion-back-button>
-  </ion-buttons>
-    <ion-title>Lesson xxx</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Kurs xxx</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    // burada question componenti ile answer componenti olacak veya tek bir component içinde hem question hem answer olacak..
-    // doğru yanlış göstergesi olacak
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Başlangıç Eğitimi</ion-card-subtitle>
+      <ion-card-title>A1 </ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content> 
+      <ion-item>
+        <ion-label>Eğitim İçeriği<p>Some more explanatory text</p></ion-label>
+        <ion-label slot="end">250/0</ion-label>
+      </ion-item>
+      <ion-list lines="inset">
+      <ion-item [routerLink]="['/training', 1]">
+        <ion-label>
+          Başlangıç Eğitimi
+        </ion-label>
+      </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+ 
 </ion-content>

@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Tab2Page } from './tab2.page';
-import { CoursesComponent } from '../courses/courses.component';
+import { CoursesComponent } from '../component/courses/courses.component';
 
 @NgModule({
   imports: [

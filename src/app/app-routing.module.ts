@@ -7,7 +7,7 @@ const routes: Routes = [
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
-    path: 'lesson',
+    path: 'course/:id/trainings',
     loadChildren: () => import('./page/lesson/lesson.module').then( m => m.LessonPageModule)
   },
   {
@@ -21,7 +21,12 @@ const routes: Routes = [
   {
     path: 'register',
     loadChildren: () => import('./page/register/register.module').then( m => m.RegisterPageModule)
-  }
+  },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  {
+    path: 'training/:id',
+    loadChildren: () => import('./page/training/training.module').then( m => m.TrainingPageModule)
+  },
 ];
 @NgModule({
   imports: [
