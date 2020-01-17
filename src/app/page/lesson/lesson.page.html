@@ -20,9 +20,14 @@
         <ion-label slot="end">250/0</ion-label>
       </ion-item>
       <ion-list lines="inset">
-      <ion-item [routerLink]="['/training', 1]">
+      <ion-item (click)="goToTraining(1)">
         <ion-label>
           Başlangıç Eğitimi
+        </ion-label>
+      </ion-item>
+      <ion-item (click)="goToQuiz(1)">
+        <ion-label>
+          Quiz 1
         </ion-label>
       </ion-item>
       </ion-list>

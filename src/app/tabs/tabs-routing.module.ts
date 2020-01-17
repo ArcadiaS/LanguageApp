@@ -8,7 +8,7 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
+        path: 'home',
         children: [
           {
             path: '',
@@ -18,17 +18,50 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'tab2',
+        path: 'courses',
         children: [
           {
             path: '',
             loadChildren: () =>
               import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+          },
+          {
+            path: ':course_id',
+            children: [
+              {
+                path: 'lesson/:lesson_id',
+                children:[
+                  {
+                    path: '',
+                    loadChildren: () => import('../page/lesson/lesson.module').then( m => m.LessonPageModule),
+                  },
+                  {
+                    path: 'training/:training_id',
+                    loadChildren: () => import('../page/training/training.module').then( m => m.TrainingPageModule)
+                  },
+                  {
+                    path: 'quiz/:quiz_id',
+                    loadChildren: () => import('../page/quiz/quiz.module').then( m => m.QuizPageModule)
+                  },
+                ]
+              },
+            ]
+          },
+          
+        ]
+      },
+      {
+        path: 'status',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../tab3/tab3.module').then(m => m.Tab3PageModule)
           }
         ]
       },
       {
-        path: 'tab3',
+        path: 'profile',
         children: [
           {
             path: '',
@@ -39,14 +72,14 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tabs/home',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/tabs/home',
     pathMatch: 'full'
   }
 ];

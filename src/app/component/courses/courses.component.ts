@@ -13,13 +13,13 @@ export class CoursesComponent implements OnInit {
     initialSlide: 0,
     speed: 400
   };
-  constructor(public nav: NavController) { }
+  constructor(public nav: NavController, public router: Router) { }
 
   ngOnInit() {}
 
-  goToLesson(id){
-    this.nav.navigateForward('course/'+id+'/trainings', id);
-    console.log(id)
+  goToLesson(course_id, lesson_id){
+    // this.nav.navigateForward('lesson', id);
+    this.router.navigate(['tabs/courses/', 1, 'lesson', 1])
   }
 }
 

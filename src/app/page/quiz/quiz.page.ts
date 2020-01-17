@@ -1,6 +1,9 @@
+import { HTTP } from '@ionic-native/http/ngx';
+import { HttpClient } from '@angular/common/http';
 import { QuestionService } from './../../services/question.service';
 import { Component, OnInit, ViewChildren, ViewChild } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, LoadingController } from '@ionic/angular';
+import { finalize } from 'rxjs/operators';
 
 
 @Component({
@@ -10,37 +13,47 @@ import { NavController } from '@ionic/angular';
 })
 export class QuizPage implements OnInit {
 
-  @ViewChild('slides') slides: any;
+
+  @ViewChild('slides', { static: true }) slides: any;
+
+  slideOpts = {
+    initialSlide: 0,
+    speed: 400
+  };
 
   hasAnswered: boolean = false;
   score: number = 0;
   slideOptions: any;
   questions: any;
 
-  constructor(public dataService: QuestionService, public navCtrl: NavController) 
+  constructor(public dataService: QuestionService, public navCtrl: NavController,
+     private http: HttpClient, private nativeHttp: HTTP, private loadingCtrl: LoadingController) 
     {
 
     }
     
-    ionViewDidLoad() {
-      
+  ngOnInit() {
+    console.log('init')
+  }
+    ionViewDidEnter() {
+      this.getQuestions();
       this.slides.lockSwipes(true);
     
-      this.dataService.load().then((data) => {
+    }
+
+    async getQuestions(){
+      let loading = await this.loadingCtrl.create();
+      await loading.present();
+      this.http.get('./assets/data/quizes/gaming/desktop/quiz.json').pipe(
+        finalize(() => loading.dismiss())
+      )
+      .subscribe(data => {
         console.log(data)
-    
-        data.map((question) => {
-    
-              let originalOrder = question.answers;
-              question.answers = this.randomizeAnswers(originalOrder);
-              return question;
-    
-          });		
-    
-          this.questions = data;
-    
-      });
-    
+        this.questions = data['results'];
+      }, err => {
+        console.log(err)
+      })
+
     }
     
     nextSlide(){
@@ -95,7 +108,5 @@ export class QuizPage implements OnInit {
     
 
       
-  ngOnInit() {
-  }
 
 }

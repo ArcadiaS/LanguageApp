@@ -21,7 +21,6 @@ export class TrainingPage implements OnInit {
 
   async confirmDialog() {
     let alert = await this.alertController.create({
-      title: 'Confirm purchase',
       message: 'Do you want to buy this book?',
       buttons: [
         {

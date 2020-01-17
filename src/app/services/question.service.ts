@@ -1,5 +1,6 @@
-import { HTTP } from '@ionic-native/http/ngx';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,34 +8,10 @@ import { Injectable } from '@angular/core';
 export class QuestionService {
 
 	data: any;
-	 quiz;
-	 category;
-	 sub;
-	constructor(public http: HTTP) {
+	constructor(private http: HttpClient) {
 
 	}
 
-	load(){
-
-		if(this.data){
-			return Promise.resolve(this.data);
-		}
-
-		return new Promise(resolve => {
-
-			console.log(this.category);
-			console.log(this.sub);
-			console.log(this.quiz);
-			this.http.get('./assets/data/quizes/'+this.category+'/'+this.sub+'/'+this.quiz+'.json').map(res => res.json()).subscribe(data => {
-			
-					this.data=data.questions;
-					resolve(this.data);
-			
-			});
-
-		});
-
-	}
 
 
 }
