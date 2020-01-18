@@ -1,4 +1,8 @@
+import { LoginPage } from './../page/login/login.page';
+import { RegisterPage } from './../page/register/register.page';
 import { Component } from '@angular/core';
+import { ModalController, MenuController, NavController } from '@ionic/angular';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-tabs',
@@ -7,6 +11,33 @@ import { Component } from '@angular/core';
 })
 export class TabsPage {
 
-  constructor() {}
+  constructor(private modalController: ModalController,
+    private menu: MenuController,
+    private authService: AuthenticationService,
+    private navCtrl: NavController,) {
+      this.menu.enable(false);
+    }
 
+    ionViewWillEnter() {
+      this.authService.getToken().then(() => {
+        if(this.authService.isLoggedIn) {
+          this.navCtrl.navigateRoot('/home');
+        }
+      });
+    }
+    ngOnInit() {
+      
+    }
+    async register() {
+      const registerModal = await this.modalController.create({
+        component: RegisterPage
+      });
+      return await registerModal.present();
+    }
+    async login() {
+      const loginModal = await this.modalController.create({
+        component: LoginPage,
+      });
+      return await loginModal.present();
+    }
 }

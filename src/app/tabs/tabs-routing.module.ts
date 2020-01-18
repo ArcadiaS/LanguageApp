@@ -1,3 +1,4 @@
+import { AuthGuard } from './../guards/auth.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
@@ -13,7 +14,7 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../tab1/tab1.module').then(m => m.Tab1PageModule)
+              import('../tab1/tab1.module').then(m => m.Tab1PageModule), canActivate: [AuthGuard]
           }
         ]
       },
@@ -23,7 +24,7 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+              import('../tab2/tab2.module').then(m => m.Tab2PageModule), canActivate: [AuthGuard]
           },
           {
             path: ':course_id',
@@ -33,15 +34,15 @@ const routes: Routes = [
                 children:[
                   {
                     path: '',
-                    loadChildren: () => import('../page/lesson/lesson.module').then( m => m.LessonPageModule),
+                    loadChildren: () => import('../page/lesson/lesson.module').then( m => m.LessonPageModule), canActivate: [AuthGuard]
                   },
                   {
                     path: 'training/:training_id',
-                    loadChildren: () => import('../page/training/training.module').then( m => m.TrainingPageModule)
+                    loadChildren: () => import('../page/training/training.module').then( m => m.TrainingPageModule), canActivate: [AuthGuard]
                   },
                   {
                     path: 'quiz/:quiz_id',
-                    loadChildren: () => import('../page/quiz/quiz.module').then( m => m.QuizPageModule)
+                    loadChildren: () => import('../page/quiz/quiz.module').then( m => m.QuizPageModule), canActivate: [AuthGuard]
                   },
                 ]
               },
@@ -56,7 +57,7 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+              import('../tab3/tab3.module').then(m => m.Tab3PageModule), canActivate: [AuthGuard]
           }
         ]
       },
@@ -66,7 +67,7 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+              import('../tab3/tab3.module').then(m => m.Tab3PageModule), canActivate: [AuthGuard]
           }
         ]
       },

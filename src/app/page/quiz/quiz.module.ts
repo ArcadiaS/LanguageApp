@@ -1,4 +1,3 @@
-import { FlashCardComponent } from './../../component/flash-card/flash-card.component';
 import { NgModule, Directive, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';

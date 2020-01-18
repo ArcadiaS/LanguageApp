@@ -1,7 +1,7 @@
 import { HTTP } from '@ionic-native/http/ngx';
 import { HttpClient } from '@angular/common/http';
 import { QuestionService } from './../../services/question.service';
-import { Component, OnInit, ViewChildren, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChildren, ViewChild, Input } from '@angular/core';
 import { NavController, LoadingController } from '@ionic/angular';
 import { finalize } from 'rxjs/operators';
 
@@ -16,6 +16,8 @@ export class QuizPage implements OnInit {
 
   @ViewChild('slides', { static: true }) slides: any;
 
+  @Input('isFlipped') flipCard: boolean;
+  
   slideOpts = {
     initialSlide: 0,
     speed: 400
@@ -26,7 +28,10 @@ export class QuizPage implements OnInit {
   slideOptions: any;
   questions: any;
 
-  constructor(public dataService: QuestionService, public navCtrl: NavController,
+  image = {
+    src: 'https://via.placeholder.com/550'
+  };
+  constructor(public dataService: QuestionService, public nav: NavController,
      private http: HttpClient, private nativeHttp: HTTP, private loadingCtrl: LoadingController) 
     {
 
@@ -48,8 +53,8 @@ export class QuizPage implements OnInit {
         finalize(() => loading.dismiss())
       )
       .subscribe(data => {
-        console.log(data)
-        this.questions = data['results'];
+        this.questions = data.questions;
+        console.log('questions', this.questions)
       }, err => {
         console.log(err)
       })
@@ -94,14 +99,11 @@ export class QuizPage implements OnInit {
     }
     
     restartQuiz() {
-      this.score = 0;
-      this.slides.lockSwipes(false);
-      this.slides.slideTo(0, 1000);
-      this.slides.lockSwipes(true);
+      this.nav.navigateRoot(['tabs/courses', 1, 'lesson', 1])
     }
     
       backButton(){
-        this.navCtrl.pop();
+        this.nav.pop();
       }
     
     

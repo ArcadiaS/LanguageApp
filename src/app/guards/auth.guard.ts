@@ -1,0 +1,45 @@
+import { Injectable } from '@angular/core';
+import { CanActivate, CanActivateChild, CanLoad, Route, UrlSegment, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { AuthenticationService } from '../services/authentication.service';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
+
+  constructor(private router: Router,
+    private authService: AuthenticationService
+){}
+
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+      const currentUser = this.authService.isLoggedIn;
+      if (currentUser) {
+          return true;
+      }
+      this.router.navigate(['/tabs']);
+      return false;
+  }
+  canActivateChild(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+      const currentUser = this.authService.isLoggedIn;
+      if (currentUser) {
+          return true;
+      }
+      this.router.navigate(['/tabs']);
+      return false;
+  }
+  canLoad(
+    route: Route,
+    segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
+      const currentUser = this.authService.isLoggedIn;
+      if (currentUser) {
+          return true;
+      }
+      this.router.navigate(['/tabs']);
+      return false;
+  }
+}
