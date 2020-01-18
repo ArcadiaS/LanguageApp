@@ -20,7 +20,6 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
   }
-
     // Dismiss Login Modal
     dismissLogin() {
       this.modalController.dismiss();
@@ -47,6 +46,41 @@ export class LoginPage implements OnInit {
         }
       );
     }
-
+    // Dismiss Register Modal
+    dismissRegister() {
+      this.modalController.dismiss();
+    }
+    // On Login button tap, dismiss Register modal and open login Modal
+    async loginModal() {
+      this.dismissRegister();
+      const loginModal = await this.modalController.create({
+        component: LoginPage,
+      });
+      return await loginModal.present();
+    }
+    register(form: NgForm) {
+      this.authService.register(form.value.fName, form.value.lName, form.value.email, form.value.password).subscribe(
+        data => {
+          this.authService.login(form.value.email, form.value.password).subscribe(
+            data => {
+            },
+            error => {
+              console.log(error);
+            },
+            () => {
+              this.dismissRegister();
+              this.navCtrl.navigateRoot('/tabs');
+            }
+          );
+          this.alertService.presentToast(data['message']);
+        },
+        error => {
+          console.log(error);
+        },
+        () => {
+          
+        }
+      );
+    }
     
 }

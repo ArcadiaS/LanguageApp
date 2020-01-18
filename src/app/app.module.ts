@@ -1,3 +1,8 @@
+import { RegisterPageModule } from './page/register/register.module';
+import { LoginPageModule } from './page/login/login.module';
+import { FormsModule } from '@angular/forms';
+import { RegisterPage } from './page/register/register.page';
+import { LoginPage } from './page/login/login.page';
 import { AuthenticationService } from './services/authentication.service';
 import { CommonModule } from '@angular/common';
 import { QuestionService } from './services/question.service';
@@ -18,15 +23,15 @@ import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [AppComponent],
-  entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, CommonModule, HttpClientModule, IonicStorageModule.forRoot()],
+  entryComponents: [LoginPage, RegisterPage],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, CommonModule, HttpClientModule, IonicStorageModule.forRoot(), FormsModule, LoginPageModule, RegisterPageModule],
   providers: [
     StatusBar,
     SplashScreen,
     HTTP,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     QuestionService,
-    AuthenticationService
+    AuthenticationService, LoginPage, RegisterPage
   ],
   bootstrap: [AppComponent]
 })

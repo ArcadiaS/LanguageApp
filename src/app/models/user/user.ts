@@ -6,5 +6,10 @@ export class User {
   email: string;
   password: string;
   password_confirmation: string;
+  
+  constructor(values: Object = {}) {
 
+    Object.assign(this, values);
+    
+  }
  }

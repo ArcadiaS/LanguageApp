@@ -1,3 +1,5 @@
+import { LoginPage } from './../page/login/login.page';
+import { RegisterPage } from './../page/register/register.page';
 import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';

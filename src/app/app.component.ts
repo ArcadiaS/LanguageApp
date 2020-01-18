@@ -27,11 +27,11 @@ export class AppComponent {
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
-      //this.splashScreen.hide();
+      this.splashScreen.hide();
 
       this.authService.isLoggedIn.subscribe(state => {
         if (state) {
-          this.router.navigate(['tabs']);
+          this.router.navigate(['tabs/home']);
         } else {
           this.router.navigate(['login']);
         }
@@ -49,7 +49,7 @@ export class AppComponent {
         console.log(error);
       },
       () => {
-        this.navCtrl.navigateRoot('/tabs');
+        this.navCtrl.navigateRoot('/tabs/home');
       }
     );
   }

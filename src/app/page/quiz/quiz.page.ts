@@ -53,7 +53,7 @@ export class QuizPage implements OnInit {
         finalize(() => loading.dismiss())
       )
       .subscribe(data => {
-        this.questions = data.questions;
+        this.questions = data;
         console.log('questions', this.questions)
       }, err => {
         console.log(err)
