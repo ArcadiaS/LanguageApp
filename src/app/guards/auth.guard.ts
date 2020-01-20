@@ -19,7 +19,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
       if (currentUser) {
           return true;
       }
-      this.router.navigate(['/tabs']);
+      this.router.navigate(['/login']);
       return false;
   }
   canActivateChild(
@@ -29,7 +29,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
       if (currentUser) {
           return true;
       }
-      this.router.navigate(['/tabs']);
+      this.router.navigate(['/login']);
       return false;
   }
   canLoad(
@@ -39,7 +39,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
       if (currentUser) {
           return true;
       }
-      this.router.navigate(['/tabs']);
+      this.router.navigate(['/login']);
       return false;
   }
 }

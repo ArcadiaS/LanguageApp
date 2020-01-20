@@ -1,3 +1,4 @@
+import { Storage } from '@ionic/storage';
 import { LoginPage } from './../page/login/login.page';
 import { RegisterPage } from './../page/register/register.page';
 import { Component } from '@angular/core';
@@ -14,7 +15,7 @@ export class TabsPage {
   constructor(private modalController: ModalController,
     private menu: MenuController,
     private authService: AuthenticationService,
-    private navCtrl: NavController,) {
+    private navCtrl: NavController, private storage: Storage) {
       this.menu.enable(false);
     }
 
@@ -27,7 +28,6 @@ export class TabsPage {
       });
     }
     ngOnInit() {
-      
     }
     async login() {
       const loginModal = await this.modalController.create({

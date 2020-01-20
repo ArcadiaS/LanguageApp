@@ -30,6 +30,7 @@ export class AppComponent {
       this.splashScreen.hide();
 
       this.authService.isLoggedIn.subscribe(state => {
+        console.log("app.components deki state", state)
         if (state) {
           this.router.navigate(['tabs/home']);
         } else {

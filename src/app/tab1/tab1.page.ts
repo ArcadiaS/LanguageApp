@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { User } from '../models/user/user';
+import { User } from '../models/user';
 import { MenuController } from '@ionic/angular';
 import { AuthenticationService } from '../services/authentication.service';
 

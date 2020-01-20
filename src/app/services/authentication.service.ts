@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { Platform } from '@ionic/angular';
 import { tap } from 'rxjs/operators';
-import { User } from '../models/user/user';
+import { User } from '../models/user';
 import { Storage } from '@ionic/storage';
 
 @Injectable({
@@ -23,11 +23,12 @@ export class AuthenticationService {
   token:any;
 
   login(email: String, password: String) {
-    return this.http.post(this.env.API_URL + 'oauth/token',
+    console.log('Logging with', email, password)
+    return this.http.post(this.env.AUTH_URL + 'oauth/token',
       {
         grant_type: 'password',
         client_id: 2,
-        client_secret: 'asdas',
+        client_secret: 'rJvrjZb0rzmvKdM2ttPSiD08DDGZ0oyaRK5A5pT0',
         username: email, 
         password: password}
     ).pipe(
@@ -70,7 +71,7 @@ export class AuthenticationService {
     const headers = new HttpHeaders({
       'Authorization': this.token["token_type"]+" "+this.token["access_token"]
     });
-    return this.http.get<User>(this.env.API_URL + 'auth/user', { headers: headers })
+    return this.http.get<User>(this.env.API_URL + '/user', { headers: headers })
     .pipe(
       tap(user => {
         return user;
@@ -94,4 +95,14 @@ export class AuthenticationService {
     );
   }
 
+  getHeaders(){
+    return {
+      headers: new HttpHeaders({
+        'Content-Type' : 'application/json',
+        'Accept': 'application/json',
+        'Authorization': this.token["token_type"]+" "+this.token["access_token"]
+      })
+    };
+  }
+  
 }

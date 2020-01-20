@@ -1,3 +1,5 @@
+import { LoadingController } from '@ionic/angular';
+import { CourseService } from './../services/course.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,6 +9,27 @@ import { Component } from '@angular/core';
 })
 export class Tab2Page {
 
-  constructor() {}
+  courses: any;
+
+  constructor(public CourseService: CourseService, public loadingCtrl: LoadingController) {
+    this.getCourses()
+  }
+
+  
+
+  async getCourses() {
+    const loading = await this.loadingCtrl.create();
+    await loading.present();
+
+    await this.CourseService.getCourses()
+      .subscribe(res => {
+        console.log(res);
+        this.courses = res;
+        loading.dismiss();
+      }, err => {
+        console.log(err);
+        loading.dismiss();
+      });
+  }
 
 }

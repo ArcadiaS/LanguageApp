@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { CourseService } from './../../services/course.service';
+import { Storage } from '@ionic/storage';
+import { Component, OnInit, Input } from '@angular/core';
+import { NavController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,9 +15,18 @@ export class CoursesComponent implements OnInit {
     initialSlide: 0,
     speed: 400
   };
-  constructor(public nav: NavController, public router: Router) { }
+  lessons: any;
+  @Input() course_id: any;
+  constructor(public nav: NavController,public CourseService: CourseService, public router: Router, private loadingCtrl: LoadingController, private storage: Storage) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.CourseService.getLessons(this.course_id).subscribe(res => {
+      console.log(res);
+      this.lessons = res;
+    }, err => {
+      console.log(err);
+    });
+  }
 
   goToLesson(course_id, lesson_id){
     // this.nav.navigateForward('lesson', id);
