@@ -1,5 +1,7 @@
+import { CourseService } from './../../services/course.service';
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-training',
@@ -16,8 +18,26 @@ export class TrainingPage implements OnInit {
   image = {
     src: 'https://via.placeholder.com/550'
   };
+  course_id: any;
+  lesson_id: any;
+  training_id: any;
+
+  training: any;
+  training_contents: any;
   
-  constructor(public alertController: AlertController) {  }
+  constructor(public alertController: AlertController, public activatedRoute: ActivatedRoute, public CourseService: CourseService, public nav: NavController) { 
+    this.course_id = this.activatedRoute.snapshot.params["course_id"];
+    this.lesson_id = this.activatedRoute.snapshot.params["lesson_id"];
+    this.training_id = this.activatedRoute.snapshot.params["training_id"];
+    this.CourseService.getTraining(this.course_id, this.lesson_id, this.training_id).subscribe(res => {
+      console.log(res);
+      this.training = res;
+      this.training_contents = res.contents
+      console.log(this.training_contents)
+    }, err => {
+      console.log(err);
+    });
+   }
 
   async confirmDialog() {
     let alert = await this.alertController.create({
@@ -34,6 +54,11 @@ export class TrainingPage implements OnInit {
           text: 'Buy',
           handler: () => {
             console.log('Buy clicked');
+            this.CourseService.finishTraining(this.course_id, this.lesson_id, this.training_id).subscribe(res => {
+              this.nav.back()
+            }, err => {
+              console.log(err);
+            });
             // route eklenecek back olabilir. sorgu atılacak
           }
         }

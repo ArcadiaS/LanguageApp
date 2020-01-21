@@ -28,9 +28,9 @@ export class CoursesComponent implements OnInit {
     });
   }
 
-  goToLesson(course_id, lesson_id){
+  goToLesson(lesson_id){
     // this.nav.navigateForward('lesson', id);
-    this.router.navigate(['tabs/courses/', 1, 'lesson', 1])
+    this.router.navigate(['tabs/courses/', this.course_id, 'lesson', lesson_id])
   }
 }
 

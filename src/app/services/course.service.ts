@@ -61,5 +61,59 @@ export class CourseService {
       catchError(this.handleError));
   }
 
+  getTrainings(course_id, lesson_id): Observable<any> {
+    
+    this.httpOptions = this.authService.getHeaders();
+
+    return this.http.get(this.env.API_URL+'/courses/'+course_id+'/lessons/'+lesson_id+'/trainings', this.httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
+  getQuizzes(course_id, lesson_id): Observable<any> {
+    
+    this.httpOptions = this.authService.getHeaders();
+
+    return this.http.get(this.env.API_URL+'/courses/'+course_id+'/lessons/'+lesson_id+'/quizzes', this.httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+  
+  getTraining(course_id, lesson_id, training_id): Observable<any> {
+    
+    this.httpOptions = this.authService.getHeaders();
+
+    return this.http.get(this.env.API_URL+'/courses/'+course_id+'/lessons/'+lesson_id+'/trainings/'+training_id, this.httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
+  postTraining(course_id, lesson_id, training_id): Observable<any> {
+    
+    this.httpOptions = this.authService.getHeaders();
+
+    return this.http.post(this.env.API_URL+'/courses/'+course_id+'/lessons/'+lesson_id+'/trainings/'+training_id, this.httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+  
+  finishTraining(course_id, lesson_id, training_id, latest_location = 0): Observable<any> {
+    
+    this.httpOptions = this.authService.getHeaders();
+
+    return this.http.patch(this.env.API_URL+'/courses/'+course_id+'/lessons/'+lesson_id+'/trainings/'+training_id, {latest_location: 1}, this.httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
+  getQuiz(course_id, lesson_id, quiz_id): Observable<any> {
+    
+    this.httpOptions = this.authService.getHeaders();
+
+    return this.http.get(this.env.API_URL+'/courses/'+course_id+'/lessons/'+lesson_id+'/quizzes/'+quiz_id, this.httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
 
 }

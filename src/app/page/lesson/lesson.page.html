@@ -20,14 +20,14 @@
         <ion-label slot="end" class="ion-text-right">250/0</ion-label>
       </ion-item>
       <ion-list lines="inset">
-      <ion-item (click)="goToTraining(1)">
+      <ion-item [ngStyle]="{ 'color': training.is_active ? 'rgba(200,0,0,0.3)' : '' }" *ngFor="let training of trainings; let i = index;" (click)="goToTraining(training.id, training.is_active)" >
         <ion-label>
-          Başlangıç Eğitimi
+          {{training.name}}
         </ion-label>
       </ion-item>
-      <ion-item (click)="goToQuiz(1)">
+      <ion-item *ngFor="let quiz of quizzes; let i = index"  (click)="goToQuiz(quiz.id, quiz.is_active)">
         <ion-label>
-          Quiz 1
+          {{quiz.name}}
         </ion-label>
       </ion-item>
       </ion-list>

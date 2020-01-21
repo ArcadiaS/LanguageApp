@@ -10,54 +10,16 @@
   <ion-row>
     
 <ion-slides pager="true" [options]="slideOpts">
-  <ion-slide>
+  <ion-slide *ngFor="let training_content of training_contents; let i = index" >
     <ion-card>
       <ion-card-content>
         <ion-list>
-          <ion-label slot="start">asdasdsd</ion-label>
+          <ion-label slot="start">{{training_content.content.german}}</ion-label>
           <ion-item>
-            <ion-img [src]="image.src"></ion-img>
+            <span slot="start">{{training.name}}</span>
+            <ion-img slot="end" [src]="training_content.image_url"></ion-img>
           </ion-item>
-          <ion-label slot="start">asdasdsd</ion-label>
-        </ion-list>
-      </ion-card-content>
-    </ion-card>
-  </ion-slide>
-  <ion-slide>
-    <ion-card>
-      <ion-card-content>
-        <ion-list>
-          <ion-label slot="start">asdasdsd</ion-label>
-          <ion-item>
-            <ion-img [src]="image.src"></ion-img>
-          </ion-item>
-          <ion-label slot="start">asdasdsd</ion-label>
-        </ion-list>
-      </ion-card-content>
-    </ion-card>
-  </ion-slide>
-  <ion-slide>
-    <ion-card>
-      <ion-card-content>
-        <ion-list>
-          <ion-label slot="start">asdasdsd</ion-label>
-          <ion-item>
-            <ion-img [src]="image.src"></ion-img>
-          </ion-item>
-          <ion-label slot="start">asdasdsd</ion-label>
-        </ion-list>
-      </ion-card-content>
-    </ion-card>
-  </ion-slide>
-  <ion-slide>
-    <ion-card>
-      <ion-card-content>
-        <ion-list>
-          <ion-label slot="start">asdasdsd</ion-label>
-          <ion-item>
-            <ion-img [src]="image.src"></ion-img>
-          </ion-item>
-          <ion-label slot="start">asdasdsd</ion-label>
+          <ion-label slot="start">{{training_content.content.turkish}}</ion-label>
         </ion-list>
       </ion-card-content>
     </ion-card>
@@ -67,7 +29,7 @@
 
 <ion-row>
   <ion-col>
-<ion-button expand="block" (click)="confirmDialog()">Eğitimi Bitir</ion-button>
+    <ion-button expand="block" (click)="confirmDialog()">Eğitimi Bitir</ion-button>
   </ion-col>
 </ion-row>
 

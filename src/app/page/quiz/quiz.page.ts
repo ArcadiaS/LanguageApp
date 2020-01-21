@@ -4,6 +4,9 @@ import { QuestionService } from './../../services/question.service';
 import { Component, OnInit, ViewChildren, ViewChild, Input } from '@angular/core';
 import { NavController, LoadingController } from '@ionic/angular';
 import { finalize } from 'rxjs/operators';
+import { AlertService } from 'src/app/services/alert.service';
+import { CourseService } from './../../services/course.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -26,15 +29,36 @@ export class QuizPage implements OnInit {
   hasAnswered: boolean = false;
   score: number = 0;
   slideOptions: any;
-  questions: any;
 
   image = {
     src: 'https://via.placeholder.com/550'
   };
-  constructor(public dataService: QuestionService, public nav: NavController,
-     private http: HttpClient, private nativeHttp: HTTP, private loadingCtrl: LoadingController) 
-    {
 
+  quiz_id: any;
+  course_id: any;
+  lesson_id: any;
+
+  quiz: any;
+  questions: any;
+  
+  constructor(public dataService: QuestionService, 
+    public nav: NavController,
+     private http: HttpClient, 
+     private nativeHttp: HTTP, 
+     private loadingCtrl: LoadingController, 
+     public activatedRoute: ActivatedRoute, 
+     public CourseService: CourseService, 
+     public alertService: AlertService) 
+    {
+      this.course_id = this.activatedRoute.snapshot.params["course_id"];
+      this.lesson_id = this.activatedRoute.snapshot.params["lesson_id"];
+      this.quiz_id = this.activatedRoute.snapshot.params["quiz_id"];
+      this.CourseService.getQuiz(this.course_id, this.lesson_id, this.quiz_id).subscribe(res => {
+        console.log(res);
+        this.quiz = res;
+      }, err => {
+        console.log(err);
+      });
     }
     
   ngOnInit() {
@@ -49,11 +73,9 @@ export class QuizPage implements OnInit {
     async getQuestions(){
       let loading = await this.loadingCtrl.create();
       await loading.present();
-      this.http.get('./assets/data/quizes/gaming/desktop/quiz.json').pipe(
-        finalize(() => loading.dismiss())
-      )
-      .subscribe(data => {
-        this.questions = data;
+      this.CourseService.getQuiz(this.course_id, this.lesson_id, this.quiz_id).subscribe(data => {
+        loading.dismiss()
+        this.questions = data.questions;
         console.log('questions', this.questions)
       }, err => {
         console.log(err)
@@ -74,15 +96,18 @@ export class QuizPage implements OnInit {
       question.flashCardFlipped = true;
     
       if(answer.correct){
-        this.score++;
+        this.score+=question.point;
       }
-    
+      // sorgu atılacak
+      
+
+
       setTimeout(() => {
         this.hasAnswered = false;
         this.nextSlide();
         answer.selected = false;
         question.flashCardFlipped = false;
-      }, 3000);
+      }, 2000);
     }
     
     randomizeAnswers(rawAnswers: any[]): any[] {
@@ -99,12 +124,12 @@ export class QuizPage implements OnInit {
     }
     
     restartQuiz() {
-      this.nav.navigateRoot(['tabs/courses', 1, 'lesson', 1])
+      this.nav.navigateRoot(['tabs/courses', this.course_id, 'lesson', this.lesson_id])
     }
     
-      backButton(){
-        this.nav.pop();
-      }
+    backButton(){
+      this.nav.pop();
+    }
     
     
     
