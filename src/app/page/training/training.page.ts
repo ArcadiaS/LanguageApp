@@ -29,10 +29,6 @@ export class TrainingPage implements OnInit {
     this.course_id = this.activatedRoute.snapshot.params["course_id"];
     this.lesson_id = this.activatedRoute.snapshot.params["lesson_id"];
     this.training_id = this.activatedRoute.snapshot.params["training_id"];
-    this.getTraining()
-   }
-
-   getTraining(){
     this.CourseService.getTraining(this.course_id, this.lesson_id, this.training_id).subscribe(res => {
       console.log(res);
       this.training = res;

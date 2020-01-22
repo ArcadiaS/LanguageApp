@@ -5,8 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class EnvService {
 
-  API_URL = 'http://istantbul.com/api';
-  AUTH_URL = 'http://istantbul.com/';
+  API_URL = 'http://language.test/api';
+  AUTH_URL = 'http://language.test/';
 
   constructor() { }
 }

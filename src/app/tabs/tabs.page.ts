@@ -19,8 +19,26 @@ export class TabsPage {
       this.menu.enable(false);
     }
 
-    
+    ionViewWillEnter() {
+      console.log('tabs page loaded')
+      this.authService.getToken().then(() => {
+        if(this.authService.isLoggedIn) {
+          this.navCtrl.navigateRoot('tabs/home');
+        }
+      });
+    }
     ngOnInit() {
     }
-    
+    async login() {
+      const loginModal = await this.modalController.create({
+        component: LoginPage,
+      });
+      return await loginModal.present();
+    }
+    async register() {
+      const registerModal = await this.modalController.create({
+        component: RegisterPage
+      });
+      return await registerModal.present();
+    }
 }

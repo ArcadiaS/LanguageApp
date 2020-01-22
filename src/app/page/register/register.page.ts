@@ -35,9 +35,18 @@ export class RegisterPage implements OnInit {
   register(form: NgForm) {
     this.authService.register(form.value.fName, form.value.lName, form.value.email, form.value.password).subscribe(
       data => {
-        this.alertService.presentToast('Kayıt Başarılı!');
-        this.dismissRegister();
-        this.navCtrl.navigateRoot('/tabs');
+        this.authService.login(form.value.email, form.value.password).subscribe(
+          data => {
+          },
+          error => {
+            console.log(error);
+          },
+          () => {
+            this.dismissRegister();
+            this.navCtrl.navigateRoot('/tabs');
+          }
+        );
+        this.alertService.presentToast(data['message']);
       },
       error => {
         console.log(error);
