@@ -53,12 +53,7 @@ export class QuizPage implements OnInit {
       this.course_id = this.activatedRoute.snapshot.params["course_id"];
       this.lesson_id = this.activatedRoute.snapshot.params["lesson_id"];
       this.quiz_id = this.activatedRoute.snapshot.params["quiz_id"];
-      this.CourseService.getQuiz(this.course_id, this.lesson_id, this.quiz_id).subscribe(res => {
-        console.log(res);
-        this.quiz = res;
-      }, err => {
-        console.log(err);
-      });
+      this.getQuiz()
     }
     
   ngOnInit() {
@@ -68,6 +63,15 @@ export class QuizPage implements OnInit {
       this.getQuestions();
       this.slides.lockSwipes(true);
     
+    }
+
+    getQuiz(){
+      this.CourseService.getQuiz(this.course_id, this.lesson_id, this.quiz_id).subscribe(res => {
+        console.log(res);
+        this.quiz = res;
+      }, err => {
+        console.log(err);
+      });
     }
 
     async getQuestions(){
@@ -100,6 +104,20 @@ export class QuizPage implements OnInit {
       }
       // sorgu atılacak
       
+      this.CourseService.postAnswer(this.quiz_id, question.id, answer.id).subscribe(data => {
+        console.log('cevaplandı')
+
+        this.CourseService.patchAnswer(this.quiz_id, question.id, answer.id, question.point).subscribe(data => {
+          console.log('point eklendi')
+        }, err => {
+          console.log(err)
+        })
+      }, err => {
+        console.log(err)
+      })
+
+      // ++ points post atılacak  quiz patch
+      // quiz finish post
 
 
       setTimeout(() => {
@@ -123,8 +141,13 @@ export class QuizPage implements OnInit {
     
     }
     
-    restartQuiz() {
-      this.nav.navigateRoot(['tabs/courses', this.course_id, 'lesson', this.lesson_id])
+    finishQuiz() {
+      this.CourseService.finishQuiz(this.course_id, this.lesson_id, this.quiz_id).subscribe(data => {
+        console.log('quiz bitirildi')
+        this.nav.navigateRoot(['tabs/courses', this.course_id, 'lesson', this.lesson_id])
+      }, err => {
+        console.log(err)
+      })
     }
     
     backButton(){

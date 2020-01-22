@@ -21,14 +21,14 @@ export class AuthenticationService {
 
   isLoggedIn = new BehaviorSubject(false);
   token:any;
-
+//client_secret: 'rJvrjZb0rzmvKdM2ttPSiD08DDGZ0oyaRK5A5pT0',
   login(email: String, password: String) {
     console.log('Logging with', email, password)
     return this.http.post(this.env.AUTH_URL + 'oauth/token',
       {
         grant_type: 'password',
         client_id: 2,
-        client_secret: 'rJvrjZb0rzmvKdM2ttPSiD08DDGZ0oyaRK5A5pT0',
+        client_secret: 'vp1Mu1t6OghzM08tBSIzcMCjpbiCVjpfoIh84tEA',
         username: email, 
         password: password}
     ).pipe(
@@ -48,8 +48,8 @@ export class AuthenticationService {
   }
   
   register(fName: String, lName: String, email: String, password: String) {
-    return this.http.post(this.env.API_URL + 'auth/register',
-      {fName: fName, lName: lName, email: email, password: password}
+    return this.http.post(this.env.API_URL + '/register',
+      {name: fName, surname: lName, email: email, password: password}
     )
   }
 

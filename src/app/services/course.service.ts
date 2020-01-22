@@ -52,11 +52,29 @@ export class CourseService {
       catchError(this.handleError));
   }
 
+  getCourse(course_id): Observable<any> {
+    
+    this.httpOptions = this.authService.getHeaders();
+
+    return this.http.get(this.env.API_URL+'/courses/'+course_id, this.httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
   getLessons(course_id): Observable<any> {
     
     this.httpOptions = this.authService.getHeaders();
 
     return this.http.get(this.env.API_URL+'/courses/'+course_id+'/lessons', this.httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
+  getLesson(course_id, lesson_id): Observable<any> {
+    
+    this.httpOptions = this.authService.getHeaders();
+
+    return this.http.get(this.env.API_URL+'/courses/'+course_id+'/lessons/'+lesson_id, this.httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError));
   }
@@ -115,5 +133,40 @@ export class CourseService {
       catchError(this.handleError));
   }
 
+  patchQuiz(course_id, lesson_id, quiz_id, points): Observable<any> {
+    
+    this.httpOptions = this.authService.getHeaders();
+
+    return this.http.patch(this.env.API_URL+'/courses/'+course_id+'/lessons/'+lesson_id+'/quizzes/'+quiz_id, {points} ,this.httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
+  postAnswer(quiz_id, question_id, answer_id): Observable<any> {
+    
+    this.httpOptions = this.authService.getHeaders();
+
+    return this.http.get(this.env.API_URL+'/quizzes/'+quiz_id+'/questions/'+question_id+'/answers/'+answer_id, this.httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
+  patchAnswer(quiz_id, question_id, answer_id, points): Observable<any> {
+    
+    this.httpOptions = this.authService.getHeaders();
+
+    return this.http.patch(this.env.API_URL+'/quizzes/'+quiz_id+'/questions/'+question_id+'/answers/'+answer_id, {points}, this.httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
+  finishQuiz(course_id, lesson_id, quiz_id): Observable<any> {
+    
+    this.httpOptions = this.authService.getHeaders();
+
+    return this.http.post(this.env.API_URL+'/courses/'+course_id+'/lessons/'+lesson_id+'/quizzes/'+quiz_id+'/finish', {}, this.httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
 
 }

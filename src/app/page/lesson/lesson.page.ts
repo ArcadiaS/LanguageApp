@@ -1,7 +1,7 @@
 import { CourseService } from './../../services/course.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, LoadingController } from '@ionic/angular';
 import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
@@ -11,22 +11,68 @@ import { AlertService } from 'src/app/services/alert.service';
 })
 export class LessonPage implements OnInit {
 
-  constructor(public nav: NavController, public router: Router, public activatedRoute: ActivatedRoute, public CourseService: CourseService, public alertService: AlertService) { }
+  constructor(public nav: NavController,
+     public router: Router, 
+     public activatedRoute: ActivatedRoute, 
+     public CourseService: CourseService, 
+     public alertService: AlertService, public loadingCtrl: LoadingController) { }
 
   course_id: any;
   lesson_id: any;
 
   trainings: any;
   quizzes: any;
+
+  lesson: any;
+  course: any;
+
+  loading: boolean = false;
+
   ngOnInit() {
     this.course_id = this.activatedRoute.snapshot.params["course_id"];
     this.lesson_id = this.activatedRoute.snapshot.params["lesson_id"];
+    
+    this.getCourse()
+  }
+
+  
+  ionViewWillEnter() {
+    this.getTrainings()
+    this.getCourses()
+  }
+
+  async getCourse() {
+    const loading = await this.loadingCtrl.create();
+    await loading.present();
+
+    await this.CourseService.getCourse(this.course_id).subscribe(res => {
+      console.log(res);
+      this.course = res;
+        this.CourseService.getLesson(this.course_id, this.lesson_id).subscribe(res => {
+          console.log('lesson', res);
+          this.lesson = res;
+          this.loading = true;
+          loading.dismiss();
+        }, err => {
+          console.log(err);
+        });
+    }, err => {
+      console.log(err);
+    });
+
+  }
+
+
+  getTrainings(){
     this.CourseService.getTrainings(this.course_id, this.lesson_id).subscribe(res => {
       console.log(res);
       this.trainings = res;
     }, err => {
       console.log(err);
     });
+  }
+
+  getCourses(){
     this.CourseService.getQuizzes(this.course_id, this.lesson_id).subscribe(res => {
       console.log(res);
       this.quizzes = res;
