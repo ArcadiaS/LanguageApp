@@ -67,20 +67,20 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../tab3/tab3.module').then(m => m.Tab3PageModule), canActivate: [AuthGuard]
+              import('../tab4/tab4.module').then(m => m.Tab4PageModule), canActivate: [AuthGuard]
           }
         ]
       },
       {
         path: '',
-        redirectTo: '/tabs/home',
+        redirectTo: '/tabs/homepage',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/home',
+    redirectTo: '/tabs/homepage',
     pathMatch: 'full'
   }
 ];
