@@ -12,13 +12,10 @@ export class Tab2Page {
   courses: any;
 
   constructor(public CourseService: CourseService, public loadingCtrl: LoadingController) {
-    
+    this.getCourses()
   }
 
   
-  ionViewWillEnter() {
-    this.getCourses()
-  }
 
   async getCourses() {
     const loading = await this.loadingCtrl.create();
