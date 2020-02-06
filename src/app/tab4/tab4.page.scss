@@ -1,3 +1,47 @@
-.baslik{
-    background: #3880ff;
+.baslik {
+  background: #3880ff;
+}
+
+.avatar1 {
+  margin-top: 14px;
+  z-index: 3;
+  width: 90px;
+  height: 90px;
+  border: solid 1px #3880ff;
+}
+
+.line1 {
+  margin-top: 10px;
+  z-index: 3;
+  height: 1px;
+  border: solid 1px #808080;
+}
+
+.kursDurumu {
+  margin-left: 10px;
+  z-index: 3;
+  width: 150px;
+  height: 33px;
+  font-family: "Segoe UI";
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 32px;
+}
+
+.rectangle1 {
+  margin-top: 50px;
+  z-index: 3;
+  height: 120px;
+  background: #ffdedd;
+  border-radius: 80px;
+}
+
+.yazi1 {
+  z-index: 3;
+  width: 66.27px;
+  height: 24px;
+  font-family: "Segoe UI";
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
 }
