@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="baslik">
+      Profil
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-avatar slot="start" class="avatar1">
+      <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+    </ion-avatar>
+    <ion-label>Kağan KAHRAMAN</ion-label>
+  </ion-item>
+  <hr noshade class="line1" />
+
+  <ion-text class="kursDurumu">Kurs Durumu</ion-text>
+   
+
+  <ion-card *ngFor="let number of [7,9]">
+    <ion-card-header>
+      <ion-card-subtitle>A1</ion-card-subtitle>
+      <ion-card-title>{{number}}. Kurs (% {{number*10+5}})</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      Kurs bilgileri olabilir...
+    </ion-card-content>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button>
+        <ion-icon name="play"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
+  </ion-card>
+
+
+</ion-content>
