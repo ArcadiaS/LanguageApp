@@ -27,8 +27,8 @@ export class AuthenticationService {
     return this.http.post(this.env.AUTH_URL + 'oauth/token',
       {
         grant_type: 'password',
-        client_id: 2,
-        client_secret: 'rJvrjZb0rzmvKdM2ttPSiD08DDGZ0oyaRK5A5pT0',
+        client_id: 4,
+        client_secret: 'qqCGcXgWKaz5y2toNprjZMD4DyfQm2Hy68Of5yeY',
         username: email, 
         password: password}
     ).pipe(

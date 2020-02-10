@@ -40,7 +40,7 @@ export class LessonPage implements OnInit {
   }
 
   goToQuiz(id, is_active){
-    if(!true) {
+    if(!is_active) {
       this.alertService.presentToast("Bu Quiz Daha Önce Tamamlanmış");
     }else{
       this.router.navigate(['tabs/courses/', this.course_id, 'lesson', this.lesson_id, 'quiz', id])
