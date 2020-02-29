@@ -32,7 +32,7 @@ export class AppComponent {
       this.authService.isLoggedIn.subscribe(state => {
         console.log("app.components deki state", state)
         if (state) {
-          this.router.navigate(['tabs/homepage']);
+          this.router.navigate(['tabs/home']);
         } else {
           this.router.navigate(['login']);
         }
@@ -50,7 +50,7 @@ export class AppComponent {
         console.log(error);
       },
       () => {
-        this.navCtrl.navigateRoot('/tabs/homepage');
+        this.navCtrl.navigateRoot('/tabs/home');
       }
     );
   }
